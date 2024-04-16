@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsPencil } from "react-icons/bs";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface Celebrities {
   id: number;
@@ -58,6 +60,16 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
     }));
   };
 
+  const handleChangeDate = (date: Date | null) => {
+    if (date) {
+      const dateString = date.toISOString().split("T")[0];
+      setEditedCeleb((prevState) => ({
+        ...prevState,
+        dob: dateString,
+      }));
+    }
+  };
+
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden mb-4">
       <div
@@ -84,9 +96,9 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
             <div className="flex flex-row justify-between gap-2">
               <div className="mb-4">
                 <label className="text-lg font-medium text-gray-700">Age</label>
-                <input
-                  type="text"
-                  value={calculateAge(editedCeleb.dob)}
+                <DatePicker
+                  selected={new Date(editedCeleb.dob)}
+                  onChange={handleChangeDate}
                   className="mt-1 px-3 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 />
               </div>
