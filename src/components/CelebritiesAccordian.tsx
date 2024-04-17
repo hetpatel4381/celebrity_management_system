@@ -33,12 +33,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedCeleb, setEditedCeleb] = useState<Celebrities>({ ...celebrity });
 
-  const handleDelete = () => {
-    const updatedCelebrities = celebrities.filter(
-      (celeb) => celeb.id !== celebrity.id
-    );
-    // setEditedCeleb(updatedCelebrities);
-  };
+  const handleDelete = () => {};
 
   const handleSave = () => {
     // Implement save functionality
@@ -162,7 +157,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
               <textarea
                 value={editedCeleb.description}
                 onChange={(e) => handleChange(e, "description")}
-                className="mt-1 px-3 py-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                className="mt-1 px-3 py-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 min-h-40"
               />
             ) : (
               <p className="mt-1 px-3 py-2 w-full rounded-md">
@@ -174,7 +169,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
             {!isEditMode && (
               <RiDeleteBinLine
                 className="text-red-600 mr-2 cursor-pointer"
-                onClick={() => handleDelete}
+                onClick={handleDelete}
               />
             )}
             {!isEditMode ? (
