@@ -5,6 +5,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Collapse } from "react-collapse";
+import celebrities from "../json/celebritiesData";
 
 interface Celebrities {
   id: number;
@@ -33,7 +34,10 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
   const [editedCeleb, setEditedCeleb] = useState<Celebrities>({ ...celebrity });
 
   const handleDelete = () => {
-    // Implement delete functionality
+    const updatedCelebrities = celebrities.filter(
+      (celeb) => celeb.id !== celebrity.id
+    );
+    // setEditedCeleb(updatedCelebrities);
   };
 
   const handleSave = () => {
@@ -170,7 +174,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
             {!isEditMode && (
               <RiDeleteBinLine
                 className="text-red-600 mr-2 cursor-pointer"
-                onClick={handleDelete}
+                onClick={() => handleDelete}
               />
             )}
             {!isEditMode ? (
