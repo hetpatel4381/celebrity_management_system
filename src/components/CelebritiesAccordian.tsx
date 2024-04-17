@@ -4,6 +4,7 @@ import { BsPencil } from "react-icons/bs";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Collapse } from "react-collapse";
 
 interface Celebrities {
   id: number;
@@ -19,17 +20,17 @@ interface Celebrities {
 
 interface CelebritiesAccordianProps {
   celebrity: Celebrities;
+  isOpen: boolean;
+  toggleAccordion: () => void;
 }
 
 const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
   celebrity,
+  isOpen,
+  toggleAccordion,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedCeleb, setEditedCeleb] = useState<Celebrities>({ ...celebrity });
-
-  const toggleAccordion = () => setIsOpen(!isOpen);
-  const toggleEditMode = () => setIsEditMode(!isEditMode);
 
   const handleDelete = () => {
     // Implement delete functionality
@@ -90,7 +91,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
           <FaChevronDown className="text-gray-500" />
         )}
       </div>
-      {isOpen && (
+      <Collapse isOpened={isOpen}>
         <div className="p-4">
           {isEditMode ? (
             <div className="flex flex-row justify-between gap-2">
@@ -149,7 +150,6 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
               </p>
             </div>
           )}
-
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Description
@@ -176,7 +176,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
             {!isEditMode ? (
               <BsPencil
                 className="text-blue-600 cursor-pointer"
-                onClick={toggleEditMode}
+                onClick={() => setIsEditMode(true)}
               />
             ) : (
               <button
@@ -188,7 +188,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
             )}
           </div>
         </div>
-      )}
+      </Collapse>
     </div>
   );
 };
