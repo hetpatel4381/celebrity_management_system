@@ -4,11 +4,19 @@ import celebrities from "../json/celebritiesData.ts";
 import { useState } from "react";
 
 const HomePage = () => {
-  const [isOpen, setIsOpen] = useState<number | null>(null); // Explicitly define the type of isOpen
+  const [isOpen, setIsOpen] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store search query
 
   const toggleAccordion = (index: number) => {
-    setIsOpen((prevIndex) => (prevIndex === index ? null : index)); // Use a ternary operator to toggle isOpen
+    setIsOpen((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  // Filter celebrities based on search query
+  const filteredCelebrities = celebrities.filter((celebrity) =>
+    `${celebrity.first} ${celebrity.last}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -20,11 +28,13 @@ const HomePage = () => {
           </div>
           <input
             type="text"
-            className="border-none focus:outline-none rounded-lg px-2"
+            className="border-none focus:outline-none rounded-lg px-2 w-full"
             placeholder="Search user"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
         </div>
-        {celebrities.map((celebrity, index) => (
+        {filteredCelebrities.map((celebrity, index) => (
           <CelebritiesAccordian
             isOpen={index === isOpen}
             key={index}
