@@ -5,9 +5,9 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Collapse } from "react-collapse";
-import celebrities from "../json/celebritiesData";
+// import celebrities from "../json/celebritiesData";
 
-interface Celebrities {
+export type Celebrities = {
   id: number;
   first: string;
   last: string;
@@ -36,8 +36,7 @@ const CelebritiesAccordian: React.FC<CelebritiesAccordianProps> = ({
   const handleDelete = () => {};
 
   const handleSave = () => {
-    // Implement save functionality
-    // You can save the editedCeleb state here
+
     setIsEditMode(false);
   };
 

@@ -2,17 +2,20 @@ import { CiSearch } from "react-icons/ci";
 import CelebritiesAccordian from "../components/CelebritiesAccordian";
 import celebrities from "../json/celebritiesData.ts";
 import { useState } from "react";
+import { Celebrities } from "../components/CelebritiesAccordian.tsx";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State to store search query
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [celeb, setCeleb] = useState<Celebrities[]>(celebrities);
 
   const toggleAccordion = (index: number) => {
     setIsOpen((prevIndex) => (prevIndex === index ? null : index));
   };
 
   // Filter celebrities based on search query
-  const filteredCelebrities = celebrities.filter((celebrity) =>
+  const filteredCelebrities = celeb.filter((celebrity) =>
     `${celebrity.first} ${celebrity.last}`
       .toLowerCase()
       .includes(searchQuery.toLowerCase())
